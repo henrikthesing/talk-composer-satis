@@ -34,36 +34,155 @@
 	</head>
 
 	<body>
-
 		<div class="reveal">
-
 			<div class="slides">
 
-                <!-- intro section -->
-                <section
-                    data-markdown="markdown/intro.md"
-                    data-separator="^-----\n"
-                    data-vertical="^---\n"
-                    data-notes="^Note:"
-                    data-charset="utf-8">
+                <!-- Intro -->
+                <section>
+                    <section>
+                        <img src="img/logo-composer-transparent.png" />
+                        <h2>Dependency Management</h2>
+                        <h4>mit Composer und Satis</h4>
+                    </section>
                 </section>
 
-                <!-- content section -->
-                <section
-                    data-markdown="markdown/composersatis.md"
-                    data-separator="^-----\n"
-                    data-vertical="^---\n"
-                    data-notes="^Note:"
-                    data-charset="utf-8">
+                <!--
+                    Geplanter Aufbau:
+                    1) Rückblick
+                    2) 2010 / 2011
+                       - Wie entstand die Idee zum Composer
+                       - Welche Probleme behebt der Composer im Gegensatz zu den alten Ansätzen
+                    3) Composer / Packagist / Github
+                       - Wie funktioniert der Composer
+                       - Wie funktioniert das Dependency Management mit der Versionierung
+                       - Was ist/macht der Packagist
+                       - Was ist Satis und wie bindet man es in eine Systemstruktur ein
+                       - Warum das Zusammenspiel mit z.B. github
+                    4) Wie kann die Kombination aus allem in einer Systemarchitektur aussehen
+                       - Satis
+                       - Applikation -> Composer -> Satis -> Packagist -> Github Free, Github Enterprise -> AWS
+                    5) Outtro
+                       - Bildnachweis, Daten etc.
+                -->
+
+                <!-- Rückblick -->
+                <section>
+                    <section>
+                        <p>Rückblick</p>
+                        <aside class="notes">
+                            - Wie hat man früher Module und 3rd-Party Libraries verwendet/gefunden?
+                            - Wie liessen sich diese in ein laufendes Projek einbinden
+                            - Warum war die Vorgehensweise schlecht
+                            - Was wurde durch Frameworks daran verbessert?
+                            - Warum sind erweiterbare Frameworks immer noch nicht die Lösung gewesen?
+
+                            - Es gab bereits ziemlich früh einen allgemeinen Open-Source-Ansatz
+                            - Man hat versucht PHPClasses oder Libraries über Portale zur Verfügung zu stellen (phpclasses.org)
+                            - Es gab zahlreiche verschiedene Seite, auf denen man Libraries herunterladen konnte
+                            - Es war nicht klar, welche Abhängigkeiten diese zu anderen Bibliotheken oder Klassen haben
+                            - Die Abhängigkeiten waren meist schlecht dokumentiert
+                            - Zudem war meistens nicht eindeutig, wie diese Libraries in eine Applikation integriert werden können (Autoloader etc.)
+                            - Außerdem gab es keine Regel, wo die 3rd-Party Libraries innerhalb der Applikation zu liegen haben (ins VCS oder nicht?)
+                            - Die Grundlage von Open Source, nämlich das Teilen von Code, war kaum möglich. Damit stirbt der OpenSource Gedanke
+
+                            - Frameworks wurden entwickelt (Symfony oder ZF1)
+                            - Idee war es, innerhalb eines Frameworks möglichst alle Funktionalitäten einer Applikation abzubilden
+                            - Dadurch entstand das Problem, dass ein Großteil der Features nicht für die Applikation relavant sind (Overhead)
+                            - Es gab zwar die Möglichkeit die Framworks durch eigenen Code zu erweitern, aber dieser konnte nicht wiederverwendet werden (wurde für das Framework geschrieben)
+                            - 3rd-Party-Codes mussten immer noch manuell heruntergeladen und ins Framework integriert werden
+                            - Mit etwas Glück hat die Library im dafür vorgesehenen 3rd-Party-Library-Ordner funktioniert
+                            - Um die Library zu nutzen mussten manuell Include-Dateien eingebunden oder AutoLoader angepasst werden (siehe zum Beispiel PHPExcel mit eigenem Autoloader)
+                            - Manuell ist für Loser!
+
+                            - Entwicklung einer zentralen Stelle von Libraries bei Release von PHP4 2000 mit PEAR
+                            - Braucht meist roo-Rechte für die Installation auf dem Server (WTF?)
+                            - Pear ist eine systemweite Paketverwaltung, die Pakete werden nicht pro Applikation auf dem Server verwaltet
+                            - Installation von Paketen ist umständlich und fehleranfällig, da keine Abhängigkeiten automatisch aufgelöst werden
+                            - PEAR ist eine Paketverwaltung aber hat kein Dpendency Management
+                        </aside>
+                    </section>
                 </section>
 
-                <!-- outro section -->
-                <section
-                    data-markdown="markdown/outro.md"
-                    data-separator="^-----\n"
-                    data-vertical="^---\n"
-                    data-notes="^Note:"
-                    data-charset="utf-8">
+                <!-- 2010 / 2011 -->
+                <section>
+                    <section>
+                        <p>2010 / 2011</p>
+                        <aside class="notes">
+                            - Symfony Live 2010 in Paris
+                            - Symfony 2.0 wird vorgestellt und hat damals Abhängigkeiten zu Doctrine und Monolog
+                            - PHPBB springt auf den Symfony-Zug auf und will ein komplettes Rebuild auf Symfony-Basis machen
+                            - Dependency Hell (!)
+                            - Aus diesen beiden Fakten ist dank Jordi Boggiano (Monolog) die Idee zu einem Dependeny Management Tool für PHP-Bibliotheken
+                            - April 2012 - Nils Aderman (PHPBB): libzypp -> PHP und Jordi Boggiano (Monolog): Packagist, front-end for PEAR entwickeln den Composer
+                            - "Composer is a tool for dependency management in PHP. It allows you to declare the dependent libraries your project needs and it will install them in your project for you."
+                            - Und plötzlich: kein Copy-Paste von Bibliotheken mehr, Abhängigkeiten werde automatisch aufgelöst, kein manuelles Installieren
+                            - automatisch generierte Classmap, definiertes Vendor-Verzeichnis, einfacher Einzeiler zur Einbindung der 3rd-Party-Libs
+                            - Projektbasierte Pakete, nicht mehr serverseitige Paketverwaltung
+                            - Angebunden an Packagist sind mehr als 40.000 Pakete verfügbar
+                            - Der Composer selbs ist ein OpenSource-Projekt mit mehr als 300 contributors
+                        </aside>
+                    </section>
+                </section>
+
+
+                <!-- Composer -->
+                <section>
+                    <section>
+                        <p>Composer</p>
+                        <aside class="notes">
+                            - Beispiel einer Composer-Datei
+                            - Welche Daten stehen in einer Composer-Datei
+                            - Wie löst der Composer Abhängigkeiten auf
+                            - Was ist Semantic Versioningg
+                            - Beschreibung des Ablaufs: Installation von Paketen
+                            - Composer Update - resolve - packagist - write composer.lock - download github - fallback auf update
+                            - Unterschied zwischen update und install, was ist die composer.lock
+                            - Funktionsweise von Packagist, Zusammenspiel mit Github etc.
+                        </aside>
+                    </section>
+
+                    <!-- Beispiel einer Composer-Datei -->
+                    <section>
+                        <pre>
+                            <code class="javascrip/#/2t" data-trim contenteditable style="font-size: 18px;">
+                                Reveal.addEventListener( 'customevent', function() {
+                                console.log( '"customevent" has fired' );
+                                } );
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+
+                <!-- Systemarchitektur -->
+                <section>
+                    <section>
+                        <p>Systemarchitektur</p>
+                        <aside class="notes">
+                            - Funktionsweise von Satis, Vorteile von Satis
+                            - Privatdepot für Composer Pakete
+                            - Open Source Projekt (+25 Mitarbeiter)
+                            - Funktionsweise:
+                            - Satis liefert Paketinformationen zu Composer
+                            - Satis holt daten aus Github
+                            - PRO: privat, local (keine latenz)
+                            - CONTRA: manuelle builds
+                            - Vorstellung diverser Architekturmöglichkeiten
+                        </aside>
+                    </section>
+                </section>
+
+                <!-- Outtro -->
+                <section>
+
+                    <!-- Credits -->
+                    <section>
+                        <p>Credits</p>
+                    </section>
+
+                    <!-- Bildnachweise -->
+                    <section>
+                        <p>Bildnachweise</p>
+                    </section>
                 </section>
             </div>
 		</div>
