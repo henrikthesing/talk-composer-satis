@@ -1,9 +1,2 @@
-# Composer Talk via reveal.js
-
-## Speaker
-- Henrik Thesing
-- Tommy Mönnich
-
-## License
-
-MIT licensed
+## Dependency Management mit Composer und Satis
+Online Version available at [https://henrikthesing.github.io/talk-composer-satis] (https://henrikthesing.github.io/talk-composer-satis)
