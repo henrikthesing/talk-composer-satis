@@ -234,17 +234,19 @@ henrik:~/myapplication$</code></pre>
                         </span>
                     </section>
 
+
                     <section>
                         <h3>Composer - Basics</h3>
                         <p>Definition der Anwendung</p>
-<pre class="fragment"><code>
-{
+<pre class="fragment"><code>{
     "name": "henrikthesing/acme-intranet",
     "description": "ACME Intranet",
     "require": {
         "phpmailer/phpmailer": "^5.2",
         "phpoffice/phpexcel": "^1.8",
-        "monolog/monolog": "^1.10",
+        "monolog/monolog": "^1.10"
+    },
+    "require-dev": {
         "phpunit/phpunit": "^4.5"
     }
 }
@@ -254,9 +256,9 @@ henrik:~/myapplication$</code></pre>
                     <section>
                         <h3>Composer - Basics</h3>
                         <p>Definition der Anwendung</p>
-<pre class="fragment"><code>henrik:~/myapplication$ composer require smarty/smarty:v3.1.24</code></pre>
+                        <pre class="fragment"><code>henrik:~/myapplication$ composer require smarty/smarty:v3.1.24</code></pre>
+                        <pre class="fragment"><code>henrik:~/myapplication$ composer require --dev phpmd/phpmd</code></pre>
                     </section>
-
 
                     <section>
                         <h3>Composer - Basics</h3>
@@ -269,13 +271,15 @@ henrik:~/myapplication$</code></pre>
         "phpmailer/phpmailer": "^5.2",
         "phpoffice/phpexcel": "^1.8",
         "monolog/monolog": "^1.10",
-        "phpunit/phpunit": "^4.5",
         "smarty/smarty": "v3.1.24",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.5",
+        "phpmd/phpmd": "^2.2"
     }
 }
 </code></pre>
                     </section>
-
 
                     <section>
                         <h3>Composer - Basics</h3>
@@ -576,7 +580,7 @@ $logger->addNotice('Hello!');
                     <section>
                         <h3>Composer - Basics</h3>
                         <p>Suche nach Paketen über packagist.org</p>
-                        <<img src="img/packagist-screen1.png" />
+                        <img src="img/packagist-screen1.png" />
                     </section>
 
                     <section>
@@ -605,9 +609,15 @@ smarty/smarty-lexer Smarty Lexer/Parser generator
                     <section>
                         <h3>Satis - Basics</h3>
                         <p>Warum Satis?</p>
-                        <p class="fragment">packagist.org ist öffentlich</p>
-                        <p class="fragment">private Pakete lassen sich nicht einbinden</p>
+                        <p class="fragment">packagist.org ist öffentlich für jeden zugänglich</p>
+                        <p class="fragment">private Pakete lassen sich dort nicht einbinden</p>
                         <p class="fragment">Satis ist eine private Alternative zu packagist.org</p>
+                    </section>
+
+                    <section>
+                        <h3>Satis - Basics</h3>
+                        <p>Installation von Satis</p>
+<pre class="fragment"><code>./satis $ git clone https://github.com/composer/satis.git</code></pre>
                     </section>
 
                     <section>
